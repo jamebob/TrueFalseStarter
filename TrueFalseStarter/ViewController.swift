@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     let questionsPerRound = 4
     var questionsAsked = 0
     var correctQuestions = 0
-    var indexOfSelectedQuestion: Int = 0
+    var randomQuestionIndex: Int = 0
     
     var gameSound: SystemSoundID = 0
     
@@ -27,9 +27,16 @@ class ViewController: UIViewController {
 //        ["Question": "All ducks are birds", "Answer": "True"]
 //    ]
     
+   
+    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button2: UIButton!
+    @IBOutlet weak var button3: UIButton!
+    @IBOutlet weak var button4: UIButton!
+    
     @IBOutlet weak var questionField: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+   
+   // @IBOutlet weak var answerThreeButton: UIButton!
+   // @IBOutlet weak var answerFourButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
     
 
@@ -47,16 +54,26 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
-        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: quizQuestions.questions.count)
-       // let questionDictionary = trivia[indexOfSelectedQuestion]
-        questionField.text = quizQuestions.questions[indexOfSelectedQuestion].question
+       randomQuestionIndex = quizQuestions.randomIndex()
+       // indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: quizQuestions.questions.count)
+       // let questionDictionary = trivia[randomIndex]
+        questionField.text = quizQuestions.questions[randomQuestionIndex].question
         playAgainButton.isHidden = true
+        
+        button1.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[0], for: .normal)
+        button2.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[1], for: .normal)
+        button3.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[2], for: .normal)
+        button4.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[3], for: .normal)
     }
+    
+
     
     func displayScore() {
         // Hide the answer buttons
-        trueButton.isHidden = true
-        falseButton.isHidden = true
+        button1.isHidden = true
+        button2.isHidden = true
+        button3.isHidden = true
+        button4.isHidden = true
         
         // Display play again button
         playAgainButton.isHidden = false
@@ -67,13 +84,17 @@ class ViewController: UIViewController {
     
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
+        let currentAnswer = sender.currentTitle!
         questionsAsked += 1
-        
-        let selectedQuestionDict = quizQuestions.questions[indexOfSelectedQuestion]
-        let correctAnswer = selectedQuestionDict.answer
-        
-        if (sender === trueButton &&  correctAnswer == "True") || (sender === falseButton && correctAnswer == "False") {
+        print(currentAnswer)
+       
+        let selectedQuestion = quizQuestions.questions[randomQuestionIndex]
+        let correctAnswer = selectedQuestion.answer
+          print(selectedQuestion.answer)
+        if currentAnswer == correctAnswer {
+            //&&  correctAnswer == "True") || (sender === falseButton && correctAnswer == "False") {
             correctQuestions += 1
+          
             questionField.text = "Correct!"
         } else {
             questionField.text = "Sorry, wrong answer!"
@@ -94,8 +115,10 @@ class ViewController: UIViewController {
     
     @IBAction func playAgain() {
         // Show the answer buttons
-        trueButton.isHidden = false
-        falseButton.isHidden = false
+        button1.isHidden = false
+        button2.isHidden = false
+        button3.isHidden = false
+        button4.isHidden = false
         
         questionsAsked = 0
         correctQuestions = 0

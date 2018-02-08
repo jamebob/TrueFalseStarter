@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameKit
 
 struct QuestionFormat {
     var question: String
@@ -27,8 +28,13 @@ struct QuizQuestions {
             answer: "Help"),
         QuestionFormat(
             question: "What was the name of Keith Moon's only solo album?",
-            answerChoices: ["The Full Moon", "Moon The Loon", "Moon The Loon", "Two Sides Of The Moon"],
+            answerChoices: ["The Full Moon", "Man On The Moon", "Moon The Loon", "Two Sides Of The Moon"],
             answer: "Two Sides Of The Moon"),
         ]
+
+func randomIndex() -> Int {
+let indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
+return indexOfSelectedQuestion
+}
 }
 
