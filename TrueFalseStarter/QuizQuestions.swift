@@ -21,7 +21,7 @@ struct QuizQuestions {
         QuestionFormat(
             question: "The movie 'The Song Remains The Same' featured which artists?",
             answerChoices: ["Led Zeppelin", "The Who", "The Band", "U2"],
-            answer: "Led Zeppelin "),
+            answer: "Led Zeppelin"),
         QuestionFormat(
             question: "Which Beatles' song contains the lyric, 'When I was young, so much younger than today'?",
             answerChoices: ["Eight Days A Week", "Blackbird", "All You Need Is Love", "Help"],

@@ -20,29 +20,21 @@ class ViewController: UIViewController {
     
     var gameSound: SystemSoundID = 0
     
-//    let trivia: [[String : String]] = [
-//        ["Question": "Only female koalas can whistle", "Answer": "False"],
-//        ["Question": "Blue whales are technically whales", "Answer": "True"],
-//        ["Question": "Camels are cannibalistic", "Answer": "False"],
-//        ["Question": "All ducks are birds", "Answer": "True"]
-//    ]
+
     
    
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
-    
     @IBOutlet weak var questionField: UILabel!
-   
-   // @IBOutlet weak var answerThreeButton: UIButton!
-   // @IBOutlet weak var answerFourButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadGameStartSound()
+        
         // Start game
         playGameStartSound()
         displayQuestion()
@@ -54,9 +46,8 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
-       randomQuestionIndex = quizQuestions.randomIndex()
-       // indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: quizQuestions.questions.count)
-       // let questionDictionary = trivia[randomIndex]
+        view.backgroundColor =  UIColor(red: 8/255.0, green: 43/255.0, blue: 62/255.0, alpha: 1.0)
+        randomQuestionIndex = quizQuestions.randomIndex()
         questionField.text = quizQuestions.questions[randomQuestionIndex].question
         playAgainButton.isHidden = true
         
@@ -83,21 +74,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func checkAnswer(_ sender: UIButton) {
+       
         // Increment the questions asked counter
         let currentAnswer = sender.currentTitle!
         questionsAsked += 1
-        print(currentAnswer)
-       
         let selectedQuestion = quizQuestions.questions[randomQuestionIndex]
         let correctAnswer = selectedQuestion.answer
-          print(selectedQuestion.answer)
         if currentAnswer == correctAnswer {
-            //&&  correctAnswer == "True") || (sender === falseButton && correctAnswer == "False") {
+            
             correctQuestions += 1
           
             questionField.text = "Correct!"
+            view.backgroundColor =  UIColor(red: 85/255.0, green: 176/255.0, blue: 112/255.0, alpha: 1.0)
         } else {
             questionField.text = "Sorry, wrong answer!"
+            view.backgroundColor =  UIColor(red: 223/255.0, green: 86/255.0, blue: 94/255.0, alpha: 1.0)
         }
         
         loadNextRoundWithDelay(seconds: 2)
@@ -130,6 +121,7 @@ class ViewController: UIViewController {
     // MARK: Helper Methods
     
     func loadNextRoundWithDelay(seconds: Int) {
+        
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
         // Calculates a time value to execute the method given current time and delay
