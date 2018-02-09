@@ -13,12 +13,12 @@ import AudioToolbox
 class ViewController: UIViewController {
     
     let quizQuestions = QuizQuestions()
-    let questionsPerRound = 4
-    var questionsAsked = 0
-    var correctQuestions = 0
-    var randomQuestionIndex: Int = 0
+    @objc let questionsPerRound = 4
+    @objc var questionsAsked = 0
+    @objc var correctQuestions = 0
+    @objc var randomQuestionIndex: Int = 0
     
-    var gameSound: SystemSoundID = 0
+    @objc var gameSound: SystemSoundID = 0
     
 
     
@@ -45,7 +45,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func displayQuestion() {
+    @objc func displayQuestion() {
+        button1.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
+        button2.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
+        button3.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
+        button4.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         view.backgroundColor =  UIColor(red: 8/255.0, green: 43/255.0, blue: 62/255.0, alpha: 1.0)
         randomQuestionIndex = quizQuestions.randomIndex()
         questionField.text = quizQuestions.questions[randomQuestionIndex].question
@@ -59,7 +63,7 @@ class ViewController: UIViewController {
     
 
     
-    func displayScore() {
+    @objc func displayScore() {
         // Hide the answer buttons
         button1.isHidden = true
         button2.isHidden = true
@@ -87,14 +91,28 @@ class ViewController: UIViewController {
             questionField.text = "Correct!"
             view.backgroundColor =  UIColor(red: 85/255.0, green: 176/255.0, blue: 112/255.0, alpha: 1.0)
         } else {
-            questionField.text = "Sorry, wrong answer!"
+            questionField.text = "Sorry, wrong answer! The correct answer was:"
             view.backgroundColor =  UIColor(red: 223/255.0, green: 86/255.0, blue: 94/255.0, alpha: 1.0)
+            //print(button3.currentTitle)
+        }
+        
+       if button1.currentTitle == correctAnswer {
+           button1.backgroundColor = UIColor(red: 85/255.0, green: 150/255.0, blue: 112/255.0, alpha: 1.0)
+        }
+       else if button2.currentTitle == correctAnswer {
+            button2.backgroundColor = UIColor(red: 85/255.0, green: 150/255.0, blue: 112/255.0, alpha: 1.0)
+        }
+       else if button3.currentTitle == correctAnswer {
+            button3.backgroundColor = UIColor(red: 85/255.0, green: 150/255.0, blue: 112/255.0, alpha: 1.0)
+        }
+       else if button4.currentTitle == correctAnswer {
+            button4.backgroundColor = UIColor(red: 85/255.0, green: 150/255.0, blue: 112/255.0, alpha: 1.0)
         }
         
         loadNextRoundWithDelay(seconds: 2)
     }
     
-    func nextRound() {
+    @objc func nextRound() {
         if questionsAsked == questionsPerRound {
             // Game is over
             displayScore()
@@ -120,7 +138,7 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    func loadNextRoundWithDelay(seconds: Int) {
+    @objc func loadNextRoundWithDelay(seconds: Int) {
         
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
@@ -133,13 +151,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func loadGameStartSound() {
+    @objc func loadGameStartSound() {
         let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
         let soundURL = URL(fileURLWithPath: pathToSoundFile!)
         AudioServicesCreateSystemSoundID(soundURL as CFURL, &gameSound)
     }
     
-    func playGameStartSound() {
+    @objc func playGameStartSound() {
         AudioServicesPlaySystemSound(gameSound)
     }
 }
