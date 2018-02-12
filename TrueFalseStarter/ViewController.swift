@@ -12,21 +12,22 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    let quizQuestions = QuizQuestions()
+    var quizQuestions = QuizQuestions()
     @objc let questionsPerRound = 4
     @objc var questionsAsked = 0
     @objc var correctQuestions = 0
     @objc var randomQuestionIndex: Int = 0
-    
     @objc var gameSound: SystemSoundID = 0
+    
     
 
     
    
-    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button1 : UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
+    
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     
@@ -46,19 +47,44 @@ class ViewController: UIViewController {
     }
     
     @objc func displayQuestion() {
-        button1.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
-        button2.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
-        button3.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
-        button4.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
-        view.backgroundColor =  UIColor(red: 8/255.0, green: 43/255.0, blue: 62/255.0, alpha: 1.0)
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
+        button4.isEnabled = true
         randomQuestionIndex = quizQuestions.randomIndex()
         questionField.text = quizQuestions.questions[randomQuestionIndex].question
         playAgainButton.isHidden = true
         
+        button4.isHidden = true
+        
+        button1.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         button1.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[0], for: .normal)
+        
+        button2.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         button2.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[1], for: .normal)
-        button3.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[2], for: .normal)
-        button4.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[3], for: .normal)
+        
+        
+        //if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 2 {
+            button3.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
+            button3.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[2], for: .normal)
+           // button3.isHidden = false
+        //}
+       
+      //  print (quizQuestions.questions[randomQuestionIndex].answerChoices.count)
+        
+        
+        
+        if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 3 {
+            button4.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
+            button4.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[3], for: .normal)
+            button4.isHidden = false
+        }
+        
+        
+        
+        view.backgroundColor =  UIColor(red: 8/255.0, green: 43/255.0, blue: 62/255.0, alpha: 1.0)
+        
+        
     }
     
 
@@ -83,8 +109,12 @@ class ViewController: UIViewController {
         let currentAnswer = sender.currentTitle!
         questionsAsked += 1
         let selectedQuestion = quizQuestions.questions[randomQuestionIndex]
+        shuffleQuestions()
+        print (quizQuestions.questions.count)
+        print (quizQuestions.answeredQuestions.count)
         let correctAnswer = selectedQuestion.answer
         if currentAnswer == correctAnswer {
+            
             
             correctQuestions += 1
           
@@ -114,20 +144,26 @@ class ViewController: UIViewController {
     
     @objc func nextRound() {
         if questionsAsked == questionsPerRound {
+            resetQuestions()
             // Game is over
             displayScore()
         } else {
             // Continue game
+           
+           
             displayQuestion()
         }
     }
     
     @IBAction func playAgain() {
+        
         // Show the answer buttons
         button1.isHidden = false
         button2.isHidden = false
         button3.isHidden = false
         button4.isHidden = false
+        
+        
         
         questionsAsked = 0
         correctQuestions = 0
@@ -137,9 +173,21 @@ class ViewController: UIViewController {
 
     
     // MARK: Helper Methods
+    func shuffleQuestions() {
+        quizQuestions.answeredQuestions.append(quizQuestions.questions[randomQuestionIndex])
+        quizQuestions.questions.remove(at: randomQuestionIndex)
+    }
+    
+    func resetQuestions() {
+        quizQuestions.questions.append(contentsOf: quizQuestions.answeredQuestions)
+        quizQuestions.answeredQuestions.removeAll()
+    }
     
     @objc func loadNextRoundWithDelay(seconds: Int) {
-        
+        button1.isEnabled = false
+        button2.isEnabled = false
+        button3.isEnabled = false
+        button4.isEnabled = false
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
         // Calculates a time value to execute the method given current time and delay

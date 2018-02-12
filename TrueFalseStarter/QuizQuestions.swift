@@ -19,22 +19,32 @@ struct QuestionFormat {
 struct QuizQuestions {
     var questions :[QuestionFormat] = [
         QuestionFormat(
-            question: "The movie 'The Song Remains The Same' featured which artists?",
+            question: "1 The movie 'The Song Remains The Same' featured which artists?",
             answerChoices: ["Led Zeppelin", "The Who", "The Band", "U2"],
             answer: "Led Zeppelin"),
         QuestionFormat(
-            question: "Which Beatles' song contains the lyric, 'When I was young, so much younger than today'?",
+            question: "2 Which Beatles' song contains the lyric, 'When I was young, so much younger than today'?",
             answerChoices: ["Eight Days A Week", "Blackbird", "All You Need Is Love", "Help"],
             answer: "Help"),
         QuestionFormat(
-            question: "What was the name of Keith Moon's only solo album?",
+            question: "3 What was the name of Keith Moon's only solo album?",
             answerChoices: ["The Full Moon", "Man On The Moon", "Moon The Loon", "Two Sides Of The Moon"],
             answer: "Two Sides Of The Moon"),
-        ]
+        QuestionFormat(
+            question: "4 three answers",
+            answerChoices: ["1", "2", "3"],
+            answer: "1"),]
+        
+    var  answeredQuestions:[QuestionFormat] = []
+    
+    
 
 func randomIndex() -> Int {
 let indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
-return indexOfSelectedQuestion
+ print("questioncount      \(questions.count)")
+    return indexOfSelectedQuestion
+   
 }
+    
 }
 
