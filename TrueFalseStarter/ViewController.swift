@@ -19,10 +19,7 @@ class ViewController: UIViewController {
     @objc var randomQuestionIndex: Int = 0
     @objc var gameSound: SystemSoundID = 0
     
-    
 
-    
-   
     @IBOutlet weak var button1 : UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
