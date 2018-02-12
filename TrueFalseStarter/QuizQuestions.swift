@@ -33,7 +33,12 @@ struct QuizQuestions {
         QuestionFormat(
             question: "4 three answers",
             answerChoices: ["1", "2", "3"],
-            answer: "1"),]
+            answer: "1"),
+        QuestionFormat(
+            question: "5 2 answers",
+            answerChoices: ["1", "2"],
+            answer: "1"),
+        ]
         
     var  answeredQuestions:[QuestionFormat] = []
     

@@ -19,22 +19,20 @@ class ViewController: UIViewController {
     @objc var randomQuestionIndex: Int = 0
     @objc var gameSound: SystemSoundID = 0
     
-
     @IBOutlet weak var button1 : UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
-    
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadGameStartSound()
-        
-        // Start game
-        playGameStartSound()
+        QuizSounds().loadGameStartSound()
+        QuizSounds().loadCheerSound()
+        QuizSounds().loadBooSound()
+        QuizSounds().playGameStartSound()
         displayQuestion()
     }
 
@@ -48,12 +46,13 @@ class ViewController: UIViewController {
         button2.isEnabled = true
         button3.isEnabled = true
         button4.isEnabled = true
+        
         randomQuestionIndex = quizQuestions.randomIndex()
         questionField.text = quizQuestions.questions[randomQuestionIndex].question
+        
         playAgainButton.isHidden = true
-        
         button4.isHidden = true
-        
+        button3.isHidden = true
         button1.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         button1.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[0], for: .normal)
         
@@ -61,14 +60,12 @@ class ViewController: UIViewController {
         button2.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[1], for: .normal)
         
         
-        //if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 2 {
+        if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 2 {
             button3.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
             button3.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[2], for: .normal)
-           // button3.isHidden = false
-        //}
+            button3.isHidden = false
+        }
        
-      //  print (quizQuestions.questions[randomQuestionIndex].answerChoices.count)
-        
         
         
         if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 3 {
@@ -116,9 +113,11 @@ class ViewController: UIViewController {
             correctQuestions += 1
           
             questionField.text = "Correct!"
+            QuizSounds().playCheerSound()
             view.backgroundColor =  UIColor(red: 85/255.0, green: 176/255.0, blue: 112/255.0, alpha: 1.0)
         } else {
             questionField.text = "Sorry, wrong answer! The correct answer was:"
+             QuizSounds().playBooSound()
             view.backgroundColor =  UIColor(red: 223/255.0, green: 86/255.0, blue: 94/255.0, alpha: 1.0)
             //print(button3.currentTitle)
         }
@@ -196,14 +195,6 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func loadGameStartSound() {
-        let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
-        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
-        AudioServicesCreateSystemSoundID(soundURL as CFURL, &gameSound)
-    }
-    
-    @objc func playGameStartSound() {
-        AudioServicesPlaySystemSound(gameSound)
-    }
+   
 }
 
