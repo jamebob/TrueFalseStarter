@@ -12,13 +12,6 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    var quizQuestions = QuizQuestions()
-    @objc let questionsPerRound = 4
-    @objc var questionsAsked = 0
-    @objc var correctQuestions = 0
-    @objc var randomQuestionIndex: Int = 0
-    @objc var gameSound: SystemSoundID = 0
-    
     @IBOutlet weak var button1 : UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
@@ -26,7 +19,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     
-
+    var quizQuestions = QuizQuestions()
+    @objc let questionsPerRound = 4
+    @objc var questionsAsked = 0
+    @objc var correctQuestions = 0
+    @objc var randomQuestionIndex: Int = 0
+    @objc var gameSound: SystemSoundID = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         QuizSounds().loadGameStartSound()
@@ -55,34 +54,23 @@ class ViewController: UIViewController {
         button3.isHidden = true
         button1.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         button1.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[0], for: .normal)
-        
         button2.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
         button2.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[1], for: .normal)
-        
         
         if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 2 {
             button3.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
             button3.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[2], for: .normal)
             button3.isHidden = false
         }
-       
-        
-        
         if quizQuestions.questions[randomQuestionIndex].answerChoices.count > 3 {
             button4.backgroundColor = UIColor(red: 12/255.0, green: 121/255.0, blue: 150/255.0, alpha: 1.0)
             button4.setTitle(quizQuestions.questions[randomQuestionIndex].answerChoices[3], for: .normal)
             button4.isHidden = false
         }
-        
-        
-        
         view.backgroundColor =  UIColor(red: 8/255.0, green: 43/255.0, blue: 62/255.0, alpha: 1.0)
-        
-        
     }
     
 
-    
     @objc func displayScore() {
         // Hide the answer buttons
         button1.isHidden = true
@@ -94,12 +82,13 @@ class ViewController: UIViewController {
         playAgainButton.isHidden = false
         
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
-        
     }
+    
     
     @IBAction func checkAnswer(_ sender: UIButton) {
        
-        // Increment the questions asked counter
+        // Increment the questions asked counter, display question result and change button colours.
+        
         let currentAnswer = sender.currentTitle!
         questionsAsked += 1
         let selectedQuestion = quizQuestions.questions[randomQuestionIndex]
@@ -108,9 +97,7 @@ class ViewController: UIViewController {
         print (quizQuestions.answeredQuestions.count)
         let correctAnswer = selectedQuestion.answer
         if currentAnswer == correctAnswer {
-            
-            
-            correctQuestions += 1
+        correctQuestions += 1
           
             questionField.text = "Correct!"
             QuizSounds().playCheerSound()
@@ -145,28 +132,21 @@ class ViewController: UIViewController {
             displayScore()
         } else {
             // Continue game
-           
-           
             displayQuestion()
         }
     }
     
     @IBAction func playAgain() {
-        
         // Show the answer buttons
         button1.isHidden = false
         button2.isHidden = false
         button3.isHidden = false
         button4.isHidden = false
         
-        
-        
         questionsAsked = 0
         correctQuestions = 0
         nextRound()
     }
-    
-
     
     // MARK: Helper Methods
     func shuffleQuestions() {
@@ -195,6 +175,5 @@ class ViewController: UIViewController {
         }
     }
     
-   
 }
 
