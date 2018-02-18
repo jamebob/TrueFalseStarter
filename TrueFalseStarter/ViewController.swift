@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
-    
     var quizQuestions = QuizQuestions()
     @objc let questionsPerRound = 4
     @objc var questionsAsked = 0
@@ -27,12 +26,14 @@ class ViewController: UIViewController {
     @objc var gameSound: SystemSoundID = 0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         QuizSounds().loadGameStartSound()
         QuizSounds().loadCheerSound()
         QuizSounds().loadBooSound()
         QuizSounds().playGameStartSound()
         displayQuestion()
+     
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +42,7 @@ class ViewController: UIViewController {
     }
     
     @objc func displayQuestion() {
+       
         button1.isEnabled = true
         button2.isEnabled = true
         button3.isEnabled = true
@@ -84,18 +86,17 @@ class ViewController: UIViewController {
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
     }
     
-    
+
     @IBAction func checkAnswer(_ sender: UIButton) {
-       
+     
         // Increment the questions asked counter, display question result and change button colours.
         
         let currentAnswer = sender.currentTitle!
         questionsAsked += 1
         let selectedQuestion = quizQuestions.questions[randomQuestionIndex]
         shuffleQuestions()
-        print (quizQuestions.questions.count)
-        print (quizQuestions.answeredQuestions.count)
-        let correctAnswer = selectedQuestion.answer
+        let correctAnswer: String? = selectedQuestion.answer
+       
         if currentAnswer == correctAnswer {
         correctQuestions += 1
           
@@ -106,7 +107,6 @@ class ViewController: UIViewController {
             questionField.text = "Sorry, wrong answer! The correct answer was:"
              QuizSounds().playBooSound()
             view.backgroundColor =  UIColor(red: 223/255.0, green: 86/255.0, blue: 94/255.0, alpha: 1.0)
-            //print(button3.currentTitle)
         }
         
        if button1.currentTitle == correctAnswer {
@@ -121,8 +121,11 @@ class ViewController: UIViewController {
        else if button4.currentTitle == correctAnswer {
             button4.backgroundColor = UIColor(red: 85/255.0, green: 150/255.0, blue: 112/255.0, alpha: 1.0)
         }
-        
-        loadNextRoundWithDelay(seconds: 2)
+    loadNextRoundWithDelay(seconds: 2)
+        button1.isEnabled = false
+        button2.isEnabled = false
+        button3.isEnabled = false
+        button4.isEnabled = false
     }
     
     @objc func nextRound() {
@@ -160,10 +163,7 @@ class ViewController: UIViewController {
     }
     
     @objc func loadNextRoundWithDelay(seconds: Int) {
-        button1.isEnabled = false
-        button2.isEnabled = false
-        button3.isEnabled = false
-        button4.isEnabled = false
+      
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
         // Calculates a time value to execute the method given current time and delay

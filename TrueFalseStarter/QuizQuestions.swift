@@ -31,13 +31,14 @@ struct QuizQuestions {
             answerChoices: ["The Full Moon", "Man On The Moon", "Moon The Loon", "Two Sides Of The Moon"],
             answer: "Two Sides Of The Moon"),
         QuestionFormat(
-            question: "4 three answers",
-            answerChoices: ["1", "2", "3"],
-            answer: "1"),
+            question: "Who was the singer in Pink Floyd",
+            answerChoices: ["David Gilmour", "Rick Wright", "Syd Barret"],
+            answer: "Syd Barret"),
         QuestionFormat(
-            question: "5 2 answers",
-            answerChoices: ["1", "2"],
-            answer: "1"),
+            question: "Jimmy Hendrix played a left handed",
+            answerChoices: ["TRUE", "FALSE"],
+            answer: "TRUE"),
+        
         ]
         
     var  answeredQuestions:[QuestionFormat] = []
@@ -46,7 +47,6 @@ struct QuizQuestions {
 
 func randomIndex() -> Int {
 let indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
- print("questioncount      \(questions.count)")
     return indexOfSelectedQuestion
    
 }
