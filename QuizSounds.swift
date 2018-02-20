@@ -13,20 +13,18 @@ var gameSound: SystemSoundID = 0
 var gameBoo: SystemSoundID = 0
 var gameCheer: SystemSoundID = 0
 
-
-
 class QuizSounds {
-
-@objc func loadGameStartSound() {
+    
+    
+    @objc func loadGameStartSound() {
     let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
     let soundURL = URL(fileURLWithPath: pathToSoundFile!)
     AudioServicesCreateSystemSoundID(soundURL as CFURL, &gameSound)
-}
+    }
 
-@objc func playGameStartSound() {
+    @objc func playGameStartSound() {
     AudioServicesPlaySystemSound(gameSound)
-}
-    
+    }
     
     @objc func loadCheerSound() {
         let pathToSoundFile = Bundle.main.path(forResource: "Cheer", ofType: "wav")

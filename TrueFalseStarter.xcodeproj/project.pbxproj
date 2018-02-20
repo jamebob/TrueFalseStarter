@@ -66,8 +66,8 @@
 			children = (
 				7DD42C48203204DA0097E752 /* Boo.wav */,
 				7DD42C49203204DA0097E752 /* Cheer.wav */,
-				7DD42C462032005E0097E752 /* QuizSounds.swift */,
 				7D654603202CAA8E00846CDE /* QuizQuestions.swift */,
+				7DD42C462032005E0097E752 /* QuizSounds.swift */,
 				97093D3B1C913506001275BC /* AppDelegate.swift */,
 				97093D3D1C913506001275BC /* ViewController.swift */,
 				97093D3F1C913506001275BC /* Main.storyboard */,
