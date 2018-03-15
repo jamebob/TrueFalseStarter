@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D654604202CAA8E00846CDE /* QuizQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D654603202CAA8E00846CDE /* QuizQuestions.swift */; };
-		7D7FE38D203C6E7300CDECA5 /* QuizManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FE38C203C6E7300CDECA5 /* QuizManager.swift */; };
 		7DD42C472032005E0097E752 /* QuizSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD42C462032005E0097E752 /* QuizSounds.swift */; };
 		7DD42C4A203204DA0097E752 /* Boo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DD42C48203204DA0097E752 /* Boo.wav */; };
 		7DD42C4B203204DA0097E752 /* Cheer.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DD42C49203204DA0097E752 /* Cheer.wav */; };
@@ -22,7 +21,6 @@
 
 /* Begin PBXFileReference section */
 		7D654603202CAA8E00846CDE /* QuizQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestions.swift; sourceTree = "<group>"; };
-		7D7FE38C203C6E7300CDECA5 /* QuizManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizManager.swift; sourceTree = "<group>"; };
 		7DD42C462032005E0097E752 /* QuizSounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuizSounds.swift; path = ../QuizSounds.swift; sourceTree = "<group>"; };
 		7DD42C48203204DA0097E752 /* Boo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Boo.wav; sourceTree = "<group>"; };
 		7DD42C49203204DA0097E752 /* Cheer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cheer.wav; sourceTree = "<group>"; };
@@ -50,7 +48,6 @@
 		97093D2F1C913506001275BC = {
 			isa = PBXGroup;
 			children = (
-				7D7FE38C203C6E7300CDECA5 /* QuizManager.swift */,
 				97093D3A1C913506001275BC /* TrueFalseStarter */,
 				97093D391C913506001275BC /* Products */,
 			);
@@ -160,7 +157,6 @@
 			files = (
 				7D654604202CAA8E00846CDE /* QuizQuestions.swift in Sources */,
 				97093D3E1C913506001275BC /* ViewController.swift in Sources */,
-				7D7FE38D203C6E7300CDECA5 /* QuizManager.swift in Sources */,
 				97093D3C1C913506001275BC /* AppDelegate.swift in Sources */,
 				7DD42C472032005E0097E752 /* QuizSounds.swift in Sources */,
 			);
