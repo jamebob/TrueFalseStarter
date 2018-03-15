@@ -12,18 +12,26 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var timerText: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var button1 : UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
+    
     var quizQuestions = QuizQuestions()
     @objc let questionsPerRound = 4
     @objc var questionsAsked = 0
     @objc var correctQuestions = 0
     @objc var randomQuestionIndex: Int = 0
-    @objc var gameSound: SystemSoundID = 0
+  
+    
+    // Timer Variables
+    var seconds = 15
+    var timer = Timer()
+    var isTimerRunning = false
     
     override func viewDidLoad() {
         
@@ -33,6 +41,7 @@ class ViewController: UIViewController {
         QuizSounds().loadBooSound()
         QuizSounds().playGameStartSound()
         displayQuestion()
+        runTimer()
      
     }
 
@@ -42,6 +51,8 @@ class ViewController: UIViewController {
     }
     
     @objc func displayQuestion() {
+        runTimer()
+        resetTimer()
        
         button1.isEnabled = true
         button2.isEnabled = true
@@ -74,7 +85,11 @@ class ViewController: UIViewController {
     
 
     @objc func displayScore() {
+        removeTimer()
+        
         // Hide the answer buttons
+
+        
         button1.isHidden = true
         button2.isHidden = true
         button3.isHidden = true
@@ -83,11 +98,13 @@ class ViewController: UIViewController {
         // Display play again button
         playAgainButton.isHidden = false
         
-        questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
+        questionField.text = "You got \(correctQuestions) out of \(questionsPerRound) correct!"
     }
     
 
     @IBAction func checkAnswer(_ sender: UIButton) {
+        
+        removeTimer()
      
         // Increment the questions asked counter, display question result and change button colours.
         
@@ -174,6 +191,59 @@ class ViewController: UIViewController {
             self.nextRound()
         }
     }
+    
+    
+    //timer
+    
+    @objc func runTimer() {
+        timerText.text = "Time Left:"
+        timerLabel.isHidden = false
+         timerText.isHidden = false
+        if isTimerRunning == false
+        {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        }
+        isTimerRunning = true
+    }
+    
+    @objc func updateTimer() {
+        
+        
+       
+        if seconds < 1 {
+            
+            isTimerRunning = false
+            timer.invalidate()
+            QuizSounds().playBooSound()
+            questionsAsked += 1
+            shuffleQuestions()
+            nextRound()
+            
+        } else {
+            seconds -= 1     //This will decrement(count down)the seconds.
+            timerLabel.text = "\(seconds)" //This will update the label.
+        }
+        
+        if seconds < 5 {
+            timerText.text = "HURRY UP!"
+        }
+        
+    }
+    
+    func resetTimer() {
+       // timer.invalidate()
+        seconds = 15    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
+        timerLabel.text = "\(seconds)"
+        
+    }
+    
+    func removeTimer() {
+        timer.invalidate()
+        timerLabel.isHidden = true
+        timerText.isHidden = true
+        isTimerRunning = false
+    }
+    
     
 }
 

@@ -19,15 +19,15 @@ struct QuestionFormat {
 struct QuizQuestions {
     var questions :[QuestionFormat] = [
         QuestionFormat(
-            question: "1 The movie 'The Song Remains The Same' featured which artists?",
+            question: "The movie 'The Song Remains The Same' featured which artists?",
             answerChoices: ["Led Zeppelin", "The Who", "The Band", "U2"],
             answer: "Led Zeppelin"),
         QuestionFormat(
-            question: "2 Which Beatles' song contains the lyric, 'When I was young, so much younger than today'?",
+            question: "Which Beatles' song contains the lyric, 'When I was young, so much younger than today'?",
             answerChoices: ["Eight Days A Week", "Blackbird", "All You Need Is Love", "Help"],
             answer: "Help"),
         QuestionFormat(
-            question: "3 What was the name of Keith Moon's only solo album?",
+            question: "What was the name of Keith Moon's only solo album?",
             answerChoices: ["The Full Moon", "Man On The Moon", "Moon The Loon", "Two Sides Of The Moon"],
             answer: "Two Sides Of The Moon"),
         QuestionFormat(
@@ -35,7 +35,7 @@ struct QuizQuestions {
             answerChoices: ["David Gilmour", "Rick Wright", "Syd Barret"],
             answer: "Syd Barret"),
         QuestionFormat(
-            question: "Jimmy Hendrix played a left handed",
+            question: "Jimmy Hendrix played left handed",
             answerChoices: ["TRUE", "FALSE"],
             answer: "TRUE"),
         

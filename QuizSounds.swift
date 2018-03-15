@@ -15,7 +15,6 @@ var gameCheer: SystemSoundID = 0
 
 class QuizSounds {
     
-    
     @objc func loadGameStartSound() {
     let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
     let soundURL = URL(fileURLWithPath: pathToSoundFile!)
